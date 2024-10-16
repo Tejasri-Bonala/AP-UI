@@ -1,0 +1,95 @@
+<mvc:View controllerName="com.aperam.aperam.blocknonedit.Custom"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.ui.layout"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:l="sap.ui.layout.form">
+
+    <html:div>
+        <m:VBox>
+            <!-- General Information Section -->
+            <m:Panel headerText="General Information" width="100%">
+                <l:SimpleForm editable="false" width="100%">
+                    <m:Label text="Project Number" />
+                    <m:Text id="projectNumber" text="{selectedProject>ProjectNumber}" width="50%" />
+
+                    <m:Label text="CTO Label" />
+                    <m:Text id="ctoLabel" text="{selectedProject>CTOLabel}" width="50%" />
+
+                    <m:Label text="Project Maturity" />
+                    <m:Text id="projectMaturity" text="{selectedProject>ProjectMaturity}" width="50%" />
+                </l:SimpleForm>
+            </m:Panel>
+
+            <!-- Financial Information Section -->
+            <m:Panel headerText="Financial Information" width="100%">
+                <l:SimpleForm editable="false" width="100%">
+                    <m:Label text="Title" />
+                    <m:Text id="title" text="{selectedProject>Title}" width="50%" />
+
+                    <m:Label text="Accounting Type" />
+                    <m:Text id="accountingType" text="{selectedProject>AccountingType}" width="50%" />
+
+                    <m:Label text="Currency" />
+                    <m:Text id="currency" text="{selectedProject>Currency}" width="50%" />
+
+                    <m:Label text="Forex (vs €)" />
+                    <m:Text id="forex" text="{selectedProject>Forex}" width="50%" />
+                </l:SimpleForm>
+            </m:Panel>
+
+            <!-- Project Details Section -->
+            <m:Panel headerText="Project Details" width="100%">
+                <l:SimpleForm editable="false" width="100%">
+                    <m:Label text="Perimeter" />
+                    <m:Text id="perimeter" text="{selectedProject>Perimeter}" width="50%" />
+
+                    <m:Label text="Plant" />
+                    <m:Text id="plant" text="{selectedProject>Plant}" width="50%" />
+
+                    <m:Label text="Capex" />
+                    <m:Text id="capex" text="{selectedProject>Capex}" width="50%" />
+
+                    <m:Label text="Opex" />
+                    <m:Text id="opex" text="{selectedProject>Opex}" width="50%" />
+
+                    <m:Label text="Lease" />
+                    <m:Text id="lease" text="{selectedProject>Lease}" width="50%" />
+                </l:SimpleForm>
+            </m:Panel>
+
+            <!-- Categories Section -->
+            <m:Panel headerText="Categories" width="100%">
+                <l:SimpleForm editable="false" width="100%">
+                    <m:Label text="Categories" />
+                    <m:Text id="categories" text="{selectedProject>Categories}" width="50%" />
+                </l:SimpleForm>
+            </m:Panel>
+
+            <!-- Yearly Forecast Section -->
+            <m:Panel headerText="Yearly Forecast" width="100%">
+                <l:SimpleForm editable="false" width="100%">
+                    <m:Label text="Year N" />
+                    <m:Text id="yearN" text="{selectedProject>YearN}" width="50%" />
+                </l:SimpleForm>
+            </m:Panel>
+
+            <!-- Deliverables Section -->
+            <m:Panel headerText="Deliverables" width="100%">
+                <l:SimpleForm editable="false" width="100%">
+                    <m:Label text="IRR" />
+                    <m:Text id="irr" text="{selectedProject>IRR}" width="50%" />
+                </l:SimpleForm>
+            </m:Panel>
+
+            <!-- Purchasing Section -->
+            <m:Panel headerText="Purchasing" width="100%">
+                <l:SimpleForm editable="false" width="100%">
+                    <m:Label text="Comments" />
+                    <m:Text id="comments" text="{selectedProject>Comments}" width="50%" />
+                </l:SimpleForm>
+            </m:Panel>
+        </m:VBox>
+    </html:div>
+</mvc:View>

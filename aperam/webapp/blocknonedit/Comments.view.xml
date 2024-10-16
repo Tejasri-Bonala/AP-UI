@@ -1,0 +1,19 @@
+<mvc:View controllerName="com.aperam.aperam.blocknonedit.Comments"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.ui.layout"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:l="sap.ui.layout.form">
+
+    <html:div>
+        <m:VBox>
+            <m:List id="commentList" items="">
+                <m:items>
+                    <m:StandardListItem
+                        title="{selectedProject>Comments}"/>
+                </m:items>
+            </m:List>
+        </m:VBox>
+    </html:div>
+</mvc:View>

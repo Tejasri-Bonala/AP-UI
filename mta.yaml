@@ -1,0 +1,92 @@
+_schema-version: "3.2"
+ID: Aperam
+version: 0.0.1
+modules:
+- name: Aperam-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: Aperam-destination-service
+    parameters:
+      content-target: true
+  - name: Aperam_html_repo_host
+    parameters:
+      service-key:
+        name: Aperam_html_repo_host-key
+  - name: uaa_Aperam
+    parameters:
+      service-key:
+        name: uaa_Aperam-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: aperam_Aperam_html_repo_host
+          ServiceInstanceName: Aperam-html5-app-host-service
+          ServiceKeyName: Aperam_html_repo_host-key
+          sap.cloud.service: aperam
+        - Authentication: OAuth2UserTokenExchange
+          Name: aperam_uaa_Aperam
+          ServiceInstanceName: Aperam-xsuaa-service
+          ServiceKeyName: uaa_Aperam-key
+          sap.cloud.service: aperam
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: Aperam-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: Aperam_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - comaperamaperam.zip
+      name: comaperamaperam
+      target-path: resources/
+- name: comaperamaperam
+  type: html5
+  path: aperam
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: Aperam-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: Aperam-destination-service
+    service-plan: lite
+- name: Aperam_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: Aperam-html5-app-host-service
+    service-plan: app-host
+- name: uaa_Aperam
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: Aperam-xsuaa-service
+    service-plan: application
+parameters:
+  deploy_mode: html5-repo

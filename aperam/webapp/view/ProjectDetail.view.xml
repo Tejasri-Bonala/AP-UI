@@ -1,0 +1,45 @@
+<mvc:View controllerName="com.aperam.aperam.controller.ProjectDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.uxap"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core" height="100%"
+    xmlns:BlockBase="com.aperam.aperam.blocknonedit">
+
+    <ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false">
+        <sections>
+            <!-- First Section: Form -->
+            <ObjectPageSection titleUppercase="false" title="Investment Request Form">
+                <subSections>
+                    <ObjectPageSubSection titleUppercase="false">
+                        <blocks>
+                            <BlockBase:Custom />
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            <!-- Second Section: Icon Tab Bar -->
+            <ObjectPageSection titleUppercase="false" title="WorkFlow Status">
+                <subSections>
+                    <ObjectPageSubSection titleUppercase="false">
+                        <blocks>
+                            <BlockBase:Workflow />
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            <!-- Third Section: Input Feed -->
+            <ObjectPageSection titleUppercase="false" title="Comments">
+                <subSections>
+                    <ObjectPageSubSection titleUppercase="false">
+                        <blocks>
+
+                            <BlockBase:Comments />
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+        </sections>
+    </ObjectPageLayout>
+</mvc:View>

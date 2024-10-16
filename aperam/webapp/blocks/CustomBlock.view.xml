@@ -1,0 +1,116 @@
+<mvc:View controllerName="com.aperam.aperam.blocks.CustomBlock"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.ui.layout"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:l="sap.ui.layout.form">
+
+    <html:div>
+        <m:VBox>
+            <!-- General Information Section -->
+            <m:Panel headerText="General Information" width="100%">
+                <l:SimpleForm editable="true" width="100%">
+                    <m:Label text="Project Number" />
+                    <m:Input id="projectNumber1" placeholder="Enter Project Number" width="50%" />
+
+                    <m:Label text="CTO Label" />
+                    <m:Input id="ctoLabel1" placeholder="Enter CTO Label"  width="50%" />
+
+                    <m:Label text="Project Maturity" />
+                    <m:Input id="projectMaturity1" placeholder="Enter Project Maturity" width="50%" />
+                </l:SimpleForm>
+            </m:Panel>
+
+            <!-- Financial Information Section -->
+            <m:Panel headerText="Financial Information" width="100%">
+                <l:SimpleForm editable="true" width="100%">
+                    <m:Label text="Title" />
+                    <m:Input id="title1" placeholder="Enter Project Title" width="50%" />
+
+                    <m:Label text="Accounting Type" />
+                    <m:Input id="accountingType1" placeholder="Select Accounting Type" width="50%" />
+
+                    <m:Label text="Currency" />
+                    <m:Input id="currency1" placeholder="Enter Currency"  width="50%" />
+
+                    <m:Label text="Forex (vs €)" />
+                    <m:Input id="forex1" placeholder="Enter Forex (vs €)"  width="50%" />
+                </l:SimpleForm>
+            </m:Panel>
+
+            <!-- Project Details Section -->
+            <m:Panel headerText="Project Details" width="100%">
+                <l:SimpleForm editable="true" width="100%">
+                    <m:Label text="Perimeter" />
+                    <m:Input id="perimeter1" placeholder="Enter Perimeter" width="50%" />
+
+                    <m:Label text="Plant" />
+                    <m:Input id="plant1" placeholder="Enter Plant" width="50%" />
+
+                    <m:Label text="Capex" />
+                    <m:Input id="capex1" placeholder="Enter Capex" width="50%" />
+
+                    <m:Label text="Opex" />
+                    <m:Input id="opex1" placeholder="Enter Opex" width="50%" />
+
+                    <m:Label text="Lease" />
+                    <m:Input id="lease1" placeholder="Enter Lease" width="50%" />
+                </l:SimpleForm>
+            </m:Panel>
+
+            <!-- Categories Section -->
+            <m:Panel headerText="Categories" width="100%">
+                <l:SimpleForm editable="true" width="100%">
+                    <m:Label text="Categories" />
+                    <m:Input id="categories1" placeholder="Enter Categories" width="50%" />
+                </l:SimpleForm>
+            </m:Panel>
+
+            <!-- Yearly Forecast Section -->
+            <m:Panel headerText="Yearly Forecast" width="100%">
+                <l:SimpleForm editable="true" width="100%">
+                    <m:Label text="Year N" />
+                    <m:Input id="yearN1" placeholder="Enter Year N" width="50%" />
+
+                    <m:Label text="Forecast Current Year" />
+                    <m:Input id="forecastCurrentYear"  width="50%" />
+
+                    <m:Label text="Forecast Year N+1" />
+                    <m:Input id="forecastYearN1" placeholder="Enter Forecast Year N+1" width="50%" />
+
+                    <m:Label text="Forecast Year N+2" />
+                    <m:Input id="forecastYearN2" placeholder="Enter Forecast Year N+2" width="50%" />
+                </l:SimpleForm>
+            </m:Panel>
+
+            <!-- Deliverables Section -->
+            <m:Panel headerText="Deliverables" width="100%">
+                <l:SimpleForm editable="true" width="100%">
+                    <m:Label text="IRR" />
+                    <m:Input id="irr1" placeholder="Enter IRR" width="50%" />
+
+                    <m:Label text="Promised Gain Year N" />
+                    <m:Input id="promisedGainYearN" placeholder="Enter Promised Gain Year N" width="50%" />
+
+                    <m:Label text="Promised Gain Year N+1" />
+                    <m:Input id="promisedGainYearN1" placeholder="Enter Promised Gain Year N+1" width="50%" />
+
+                    <m:Label text="Promised Gain Year N+2" />
+                    <m:Input id="promisedGainYearN2" placeholder="Enter Promised Gain Year N+2" width="50%" />
+
+                    <m:Label text="Promised Gain Year N+3" />
+                    <m:Input id="promisedGainYearN3" placeholder="Enter Promised Gain Year N+3" width="50%" />
+                </l:SimpleForm>
+            </m:Panel>
+
+            <!-- Purchasing Section -->
+            <m:Panel headerText="Purchasing" width="100%">
+                <l:SimpleForm editable="true" width="100%">
+                    <m:Label text="Comments" />
+                    <m:TextArea id="comments1" placeholder="Enter comments" width="50%" />
+                </l:SimpleForm>
+            </m:Panel>
+        </m:VBox>
+    </html:div>
+</mvc:View>

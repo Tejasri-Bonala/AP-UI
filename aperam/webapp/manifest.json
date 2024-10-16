@@ -1,0 +1,152 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "com.aperam.aperam",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.15.1",
+      "toolsId": "5e636930-46cc-4c70-83f6-bda0a2c77a74"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "Aperam-manage": {
+          "semanticObject": "Aperam",
+          "action": "manage",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.129.2",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.aperam.aperam.i18n.i18n"
+        }
+      },
+      "product": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/ProductCollection.json"
+      },
+      "stepsModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/status.json"
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "com.aperam.aperam.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "Routedashboard",
+          "pattern": ":?query:",
+          "target": [
+            "Targetdashboard"
+          ]
+        },
+        {
+          "name": "capex",
+          "pattern": "capex",
+          "target": [
+            "capex"
+          ]
+        },
+        {
+          "pattern": "ProjectDetail/{ProjectNumber}",
+          "name": "projectDetail",
+          "target": "projectDetail"
+      }
+      ],
+      "targets": {
+        "Targetdashboard": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "dashboard",
+          "viewName": "dashboard",
+          "viewLevel": 1
+        },
+        "capex": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "capex",
+          "viewName": "capex"
+        },
+        "projectDetail": {
+          "viewName": "ProjectDetail",
+          "viewLevel": 2,
+          "viewPath": "com.aperam.aperam.view",
+          "controlAggregation": "pages",
+          "viewId": "ProjectDetail",
+          "controlId": "app"
+      }  
+      }
+    },
+    "rootView": {
+      "viewName": "com.aperam.aperam.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "aperam"
+  }
+}
