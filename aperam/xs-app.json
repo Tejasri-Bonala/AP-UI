@@ -4,9 +4,9 @@
   "routes": [
     {
       "source": "^/bpmworkflowruntime/(.*)$",
-      "target": "/$1",
-      "service": "com.sap.bpm.workflow",
-      "endpoint": "workflow_rest_url",
+      "target": "/public/workflow/rest/$1",
+      "service": "com.sap.spa.processautomation",
+      "endpoint": "api",
       "authenticationType": "xsuaa"
     },
     {
