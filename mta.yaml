@@ -18,7 +18,7 @@ modules:
         name: uaa_Aperam-key
   parameters:
     content:
-      instance:
+      subaccount:
         destinations:
         - Name: aperam_Aperam_html_repo_host
           ServiceInstanceName: Aperam-html5-app-host-service
@@ -63,7 +63,7 @@ resources:
     config:
       HTML5Runtime_enabled: true
       init_data:
-        instance:
+        subaccount:
           destinations:
           - Authentication: NoAuthentication
             Name: ui5

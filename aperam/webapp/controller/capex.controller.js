@@ -1,101 +1,95 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-],
-    function (Controller) {
-        "use strict";
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/model/json/JSONModel",
+    "sap/base/Log"
+], function (Controller, JSONModel, Log) {
+    "use strict";
 
-        return Controller.extend("com.aperam.aperam.controller.capex", {
-            onInit: function () {
+    return Controller.extend("com.aperam.aperam.controller.capex", {
+        onInit: function () {
+            // Initialize the model with empty data
+            var initialModel = new JSONModel({
+                initialContext: {
+                    PROJECT_NUMBER: "",
+                    CAPEX: "",
+                    OPEX: "",
+                    YEAR: "",
+                    PLANT: ""
+                },
+                apiResponse: ""
+            });
+            this.getView().setModel(initialModel);
+        },
 
-            },
-            onCancelPress: function () {
-                // Get the view
-                this.getView().byId("projectNumber1").setValue();
-                this.getView().byId("ctoLabel1").setValue();
-                this.getView().byId("projectMaturity1").setValue();
-                this.getView().byId("title1").setValue();
-                this.getView().byId("accountingType1").setValue();
-                this.getView().byId("currency1").setValue();
-                this.getView().byId("forex1").setValue();
-                this.getView().byId("perimeter1").setValue();
-                this.getView().byId("plant1").setValue();
-                this.getView().byId("capex1").setValue();
-                this.getView().byId("opex1").setValue();
-                this.getView().byId("lease1").setValue();
-                this.getView().byId("categories1").setValue();
-                this.getView().byId("yearN1").setValue();
-                this.getView().byId("forecastCurrentYear").setValue();
-                this.getView().byId("forecastYearN1").setValue();
-                this.getView().byId("forecastYearN2").setValue();
-                this.getView().byId("irr1").setValue();
-                this.getView().byId("promisedGainYearN").setValue();
-                this.getView().byId("promisedGainYearN3").setValue();
-                this.getView().byId("promisedGainYearN2").setValue();
-                this.getView().byId("comments1").setValue();
-                this.getView().byId("feedInput").setValue();
-            },
-            // _getBaseUrlOfProcess: function () {
-            //     const appId = this.getOwnerComponent().getManifestEntry("/sap.app/id")
-            //     const appPath = appId.replaceAll(".", "/")
-            //     const appModulePath = jQuery.sap.getModulePath(appPath);
-            //     return appModulePath + "/com.sap.spa.processautomation"
-            // },
-            // onSubmitPress: function () {
-            //     const url = "/com.aperam.workflowuimodule/bpmworkflowruntime/v1/xsrf-token";
-            //     let payload = {
-            //         "definitionId": "eu10.aarini-development.aperam4.capexprocess",
-            //         "context": {
-            //             PROJECT_NUMBER: this.getView().byId("projectNumber1").getValue(),
-            //             CAPEX: this.getView().byId("capex1").getValue(),
-            //             OPEX: this.getView().byId("opex1").getValue(),
-            //             YEAR: this.getView().byId("yearN1").getValue(),
-            //             PLANT: this.getView().byId("plant1").getValue()
-            //         }
-            //     };
+        _getFormData: function () {
+            // Collect form data from input fields
+            return {
+                PROJECT_NUMBER: this.getView().byId("projectNumber1").getValue(),
+                CAPEX: this.getView().byId("capex1").getValue(),
+                OPEX: this.getView().byId("opex1").getValue(),
+                YEAR: this.getView().byId("yearN1").getValue(),
+                PLANT: this.getView().byId("plant1").getValue()
+            };
+        },
 
-            //     $.ajax({
-            //         url: url, 
-            //         method: "POST",
-            //         contentType: "application/json",
-            //         data: JSON.stringify(payload),
-            //         success: function (response) {
-            //             sap.m.MessageBox.success("Workflow started successfully!");
-            //         },
-            //         error: function (error) {
-            //             sap.m.MessageBox.error("Failed to start the workflow.");
-            //         }
-            //     });
-            // }
-            onSubmitPress: function () {
-                var workflowStartPayload = {
-                    definitionId: "eu10.aarini-development.aperam4.capexprocess",
-                    context: {
-                        PROJECT_NUMBER: this.getView().byId("projectNumber1").getValue(),
-                        CAPEX: this.getView().byId("capex1").getValue(),
-                        OPEX: this.getView().byId("opex1").getValue(),
-                        YEAR: this.getView().byId("yearN1").getValue(),
-                        PLANT: this.getView().byId("plant1").getValue()
-                    }
-                };
-            
-                // AJAX call to start the workflow instance directly
-                $.ajax({
-                    url: "/com.aperam.workflowuimodule/bpmworkflowruntime/v1/workflow-instances",
-                    method: "POST",
-                    contentType: "application/json",
-                    headers: {
-                        "X-CSRF-Token": "Fetch"  // Requesting the CSRF token
-                    },
-                    data: JSON.stringify(workflowStartPayload),
-                    success: function () {
-                        sap.m.MessageBox.information("The workflow has successfully started");
-                    },
-                    error: function (error) {
-                        sap.m.MessageBox.error("Failed to start the workflow. Please try again.");
-                        console.error("Workflow start error:", error);
-                    }
-                });
-            }
-            
-        });
+        onSubmitPress: function () {
+            // Get the model and set the initialContext with the form data
+            var model = this.getView().getModel();
+            var formData = this._getFormData();
+
+            model.setProperty("/initialContext", formData);
+
+            var data = {
+                "definitionId": "eu10.aarini-development.aperam4.capexprocess",
+                "context": formData
+            };
+
+            // Make the AJAX request to submit data
+            $.ajax({
+                url: this._getWorkflowRuntimeBaseURL() + "/workflow-instances",
+                method: "POST",
+                contentType: "application/json",
+                headers: {
+                    "X-CSRF-Token": this._fetchToken()
+                },
+                data: JSON.stringify(data),
+                success: function (result, xhr, data) {
+                    model.setProperty(
+                        "/apiResponse",
+                        JSON.stringify(result, null, 4)
+                    );
+                },
+                error: function (request, status, error) {
+                    var response = JSON.parse(request.responseText);
+                    model.setProperty(
+                        "/apiResponse",
+                        JSON.stringify(response, null, 4)
+                    );
+                },
+            });
+        },
+
+        _fetchToken: function () {
+            var fetchedToken;
+
+            jQuery.ajax({
+                url: this._getWorkflowRuntimeBaseURL() + "/xsrf-token",
+                method: "GET",
+                async: false,
+                headers: {
+                    "X-CSRF-Token": "Fetch",
+                },
+                success(result, xhr, data) {
+                    fetchedToken = data.getResponseHeader("X-CSRF-Token");
+                },
+            });
+            return fetchedToken;
+        },
+        _getWorkflowRuntimeBaseURL: function () {
+            var appId = this.getOwnerComponent().getManifestEntry("sap.app").id;
+            var appPath = appId.replace(/\./g, "/");
+            var appModulePath = sap.ui.require.toUrl(appPath);
+            return appModulePath + "/bpmworkflowruntime/v1";
+        }
     });
+});

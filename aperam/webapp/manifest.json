@@ -94,7 +94,7 @@
       "routes": [
         {
           "name": "Routedashboard",
-          "pattern": ":?query:",
+          "pattern": "",
           "target": [
             "Targetdashboard"
           ]
