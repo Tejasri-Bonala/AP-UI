@@ -76,7 +76,7 @@
             </m:Panel>
 
             <!-- Deliverables Section -->
-            <m:Panel headerText="Deliverables" width="100%">
+            <m:Panel headerText="Deliverables" width="100%" visible="false">
                 <l:SimpleForm editable="false" width="100%">
                     <m:Label text="IRR" />
                     <m:Text id="irr" text="{selectedProject>IRR}" width="50%" />
@@ -84,7 +84,7 @@
             </m:Panel>
 
             <!-- Purchasing Section -->
-            <m:Panel headerText="Purchasing" width="100%">
+            <m:Panel headerText="Purchasing" width="100%" visible="false">
                 <l:SimpleForm editable="false" width="100%">
                     <m:Label text="Comments" />
                     <m:Text id="comments" text="{selectedProject>Comments}" width="50%" />

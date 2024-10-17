@@ -11,11 +11,21 @@ sap.ui.define([
             var initialModel = new JSONModel({
                 initialContext: {
                     PROJECT_NUMBER: "",
+                    CTO_LABEL: "",
+                    PROJECT_MATURITY: "",
+                    TITLE: "",
+                    ACCOUNTING_TYPE: "",
+                    CURRENCY: "",
+                    FOREX: "",
+                    PERIMETER: "",
+                    PLANT: "",
                     CAPEX: "",
                     OPEX: "",
+                    LEASE: "",
+                    CATEGORIES: "",
                     YEAR: "",
-                    PLANT: ""
-                },
+                    COMMENTS: ""
+                },                
                 apiResponse: ""
             });
             this.getView().setModel(initialModel);
@@ -25,10 +35,20 @@ sap.ui.define([
             // Collect form data from input fields
             return {
                 PROJECT_NUMBER: this.getView().byId("projectNumber1").getValue(),
+                CTO_LABEL: this.getView().byId("ctoLabel1").getSelectedKey(),
+                PROJECT_MATURITY: this.getView().byId("projectMaturity1").getValue(),
+                TITLE: this.getView().byId("title1").getValue(),
+                ACCOUNTING_TYPE: this.getView().byId("accountingType1").getSelectedKey(),
+                CURRENCY: this.getView().byId("currency1").getValue(),
+                FOREX: this.getView().byId("forex1").getValue(),
+                PERIMETER: this.getView().byId("perimeter1").getValue(),
+                PLANT: this.getView().byId("plant1").getValue(),
                 CAPEX: this.getView().byId("capex1").getValue(),
                 OPEX: this.getView().byId("opex1").getValue(),
-                YEAR: this.getView().byId("yearN1").getValue(),
-                PLANT: this.getView().byId("plant1").getValue()
+                LEASE: this.getView().byId("lease1").getValue(),
+                CATEGORIES: this.getView().byId("categories1").getValue(),
+                YEAR: this.getView().byId("year").getValue(),
+                COMMENTS: this.getView().byId("comments1").getValue()
             };
         },
 
@@ -90,6 +110,14 @@ sap.ui.define([
             var appPath = appId.replace(/\./g, "/");
             var appModulePath = sap.ui.require.toUrl(appPath);
             return appModulePath + "/bpmworkflowruntime/v1";
+        },
+        onAccountingTypeChange: function (oEvent) {
+            var oSelectedItem = oEvent.getParameter("selectedItem");
+            var sSelectedKey = oSelectedItem ? oSelectedItem.getKey() : null;
+
+            // Update the model property for selectedAccountingType
+            this.getView().getModel().setProperty("/selectedAccountingType", sSelectedKey);
         }
+
     });
 });

@@ -23,8 +23,10 @@
                                             <m:Input id="projectNumber1" placeholder="Enter Project Number" width="50%" />
 
                                             <m:Label text="CTO Label" />
-                                            <m:Input id="ctoLabel1" placeholder="Enter CTO Label" width="50%" />
-
+                                            <m:ComboBox id="ctoLabel1" width="50%" placeholder="Select CTO Label">
+                                                <core:Item key="FastTrack" text="Fast Track" />
+                                                <core:Item key="RestrictedBudget" text="Restricted Budget" />
+                                            </m:ComboBox>
                                             <m:Label text="Project Maturity" />
                                             <m:Input id="projectMaturity1" placeholder="Enter Project Maturity" width="50%" />
                                         </l:SimpleForm>
@@ -37,7 +39,12 @@
                                             <m:Input id="title1" placeholder="Enter Project Title" width="50%" />
 
                                             <m:Label text="Accounting Type" />
-                                            <m:Input id="accountingType1" placeholder="Select Accounting Type" width="50%" />
+                                            <m:ComboBox id="accountingType1" width="50%" placeholder="Select Accounting Type" selectionChange="onAccountingTypeChange">
+                                                <core:Item key="Capex" text="Capex " />
+                                                <core:Item key="Capex/Opex" text="Capex/Opex" />
+                                                <core:Item key="Opex" text="Opex " />
+                                                <core:Item key="Lease" text="Lease" />
+                                            </m:ComboBox>
 
                                             <m:Label text="Currency" />
                                             <m:Input id="currency1" placeholder="Enter Currency" width="50%" />
@@ -57,26 +64,27 @@
                                             <m:Input id="plant1" placeholder="Enter Plant" width="50%" />
 
                                             <m:Label text="Capex" />
-                                            <m:Input id="capex1" placeholder="Enter Capex" width="50%" />
+                                            <m:Input id="capex1" placeholder="Enter Capex" width="50%" visible="{= ${/selectedAccountingType} === 'Capex' || ${/selectedAccountingType} === 'Capex/Opex'}" />
 
                                             <m:Label text="Opex" />
-                                            <m:Input id="opex1" placeholder="Enter Opex" width="50%" />
+                                            <m:Input id="opex1" placeholder="Enter Opex" width="50%" visible="{= ${/selectedAccountingType} === 'Opex' || ${/selectedAccountingType} === 'Capex/Opex'}" />
 
                                             <m:Label text="Lease" />
-                                            <m:Input id="lease1" placeholder="Enter Lease" width="50%" />
+                                            <m:Input id="lease1" placeholder="Enter Lease" width="50%" visible="{= ${/selectedAccountingType} === 'Lease'}" />
                                         </l:SimpleForm>
                                     </m:Panel>
-
                                     <!-- Categories Section -->
                                     <m:Panel headerText="Categories" width="100%">
                                         <l:SimpleForm editable="true" width="100%">
                                             <m:Label text="Categories" />
                                             <m:Input id="categories1" placeholder="Enter Categories" width="50%" />
+                                            <m:Label text="Year N" />
+                                            <m:DatePicker  displayFormat="yyyy" valueFormat="yy" width="50%" id="year" />
                                         </l:SimpleForm>
                                     </m:Panel>
 
                                     <!-- Yearly Forecast Section -->
-                                    <m:Panel headerText="Yearly Forecast" width="100%">
+                                    <m:Panel headerText="Yearly Forecast" width="100%" visible="false">
                                         <l:SimpleForm editable="true" width="100%">
                                             <m:Label text="Year N" />
                                             <m:Input id="yearN1" placeholder="Enter Year N" width="50%" />
@@ -93,7 +101,7 @@
                                     </m:Panel>
 
                                     <!-- Deliverables Section -->
-                                    <m:Panel headerText="Deliverables" width="100%">
+                                    <m:Panel headerText="Deliverables" width="100%" visible="false">
                                         <l:SimpleForm editable="true" width="100%">
                                             <m:Label text="IRR" />
                                             <m:Input id="irr1" placeholder="Enter IRR" width="50%" />
@@ -113,7 +121,7 @@
                                     </m:Panel>
 
                                     <!-- Purchasing Section -->
-                                    <m:Panel headerText="Purchasing" width="100%">
+                                    <m:Panel headerText="Purchasing" width="100%" visible="false">
                                         <l:SimpleForm editable="true" width="100%">
                                             <m:Label text="Comments" />
                                             <m:TextArea id="comments1" placeholder="Enter comments" width="50%" />
