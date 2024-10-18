@@ -58,8 +58,7 @@ sap.ui.define([
                 // comments: this.getView().byId("comment1").getValue()
                 comments: {
                     text: this.getView().byId("comment1").getValue(), 
-                    author: "User", 
-                    date: new Date().toISOString() 
+                    author: "Saurabh" 
                 }
             };
         },        
@@ -203,9 +202,7 @@ sap.ui.define([
 
             // create new entry
             var oEntry = {
-                Author: "User",
-                Type: "Reply",
-                Date: "" + sDate,
+                Author: "Saurabh",
                 Text: sValue
             };
 
