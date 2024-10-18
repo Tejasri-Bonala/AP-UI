@@ -60,18 +60,18 @@ sap.ui.define([
         },
 
         onSubmitPress: function () {
-            // Get the model and set the initialContext with the form data
             var model = this.getView().getModel();
             var formData = this._getFormData();
-
+            var that = this; // Store reference to 'this'
+        
             model.setProperty("/initialContext", formData);
-
+        
             var data = {
                 "definitionId": "eu10.aarini-development.aperam4.capexprocess",
                 "context": formData
             };
-
-            // Make the AJAX request to submit data
+        
+            // AJAX request to submit data
             $.ajax({
                 url: this._getWorkflowRuntimeBaseURL() + "/workflow-instances",
                 method: "POST",
@@ -81,17 +81,52 @@ sap.ui.define([
                 },
                 data: JSON.stringify(data),
                 success: function (result) {
-                    model.setProperty(
-                        "/apiResponse",
-                        JSON.stringify(result, null, 4)
-                    );
-
-                    // Show a success message box
+                    model.setProperty("/apiResponse", JSON.stringify(result, null, 4));
+        
+                    // Show success message box
                     MessageBox.success("Workflow submitted successfully!", {
                         title: "Success",
                         onClose: function () {
-                            this.onCancelPress();
-                        }
+                            var oView = that.getView(); // Use 'that' for correct context
+                            var oComponent = that.getOwnerComponent();
+                            var oRouter = oComponent.getRouter(); // Get the router
+        
+                            // Prepare data for ProductCollection
+                            var oData = {
+                                "Plant": oView.byId("plant1").getValue(),
+                                "ProjectNumber": oView.byId("projectNumber1").getValue(),
+                                "Title": oView.byId("title1").getValue(),
+                                "Status": "Draft",
+                                "Capex": oView.byId("capex1").getValue(),
+                                "Currency": oView.byId("currency1").getValue(),
+                                "Categories": oView.byId("categories1").getValue(),
+                                "DateOfModification": new Date().toISOString().slice(0, 10),
+                                "CTOLabel": oView.byId("ctoLabel1").getSelectedKey(),
+                                "ProjectMaturity": oView.byId("projectMaturity1").getValue(),
+                                "AccountingType": oView.byId("accountingType1").getSelectedKey(),
+                                "Forex": oView.byId("forex1").getValue(),
+                                "Perimeter": oView.byId("perimeter1").getValue(),
+                                "Opex": oView.byId("opex1").getValue(),
+                                "Lease": oView.byId("lease1").getValue(),
+                                "YearN": oView.byId("year").getValue(),
+                                "ForecastCurrentYear": oView.byId("forecastCurrentYear").getValue(),
+                                "IRR": oView.byId("irr1").getValue(),
+                                "PromisedGainYearN": oView.byId("promisedGainYearN").getValue(),
+                                "Comments": oView.byId("comments1").getValue()
+                            };
+        
+                            // Update ProductCollection model
+                            var oModel = oComponent.getModel("product");
+                            var aProductCollection = oModel.getProperty("/ProductCollection") || [];
+                            aProductCollection.push(oData);
+                            oModel.setProperty("/ProductCollection", aProductCollection);
+        
+                            // Navigate to the dashboard
+                            oRouter.navTo("Routedashboard");
+        
+                            // Call the cancel function
+                            that.onCancelPress();
+                        }.bind(that) // Bind 'that' to preserve context
                     });
                 },
                 error: function (request) {
@@ -101,22 +136,16 @@ sap.ui.define([
                     } catch (e) {
                         response = { message: "An unknown error occurred." };
                     }
-                    model.setProperty(
-                        "/apiResponse",
-                        JSON.stringify(response, null, 4)
-                    );
-
-                    // Show an error message box
+                    model.setProperty("/apiResponse", JSON.stringify(response, null, 4));
+        
+                    // Show error message box
                     MessageBox.error("Failed to submit workflow. Please try again.", {
                         title: "Error",
-                        details: response.message || response, // Display the error details if available
-                        onClose: function () {
-                            // Optional: Actions to perform after closing the message box
-                        }
+                        details: response.message || response // Display error details
                     });
                 }
             });
-        },
+        },        
         _fetchToken: function () {
             var fetchedToken;
 
@@ -147,31 +176,21 @@ sap.ui.define([
             this.getView().getModel().setProperty("/selectedAccountingType", sSelectedKey);
         },
         onCancelPress: function () {
-            // Get the view
-            this.getView().byId("projectNumber1").setValue();
-            this.getView().byId("ctoLabel1").setValue();
-            this.getView().byId("projectMaturity1").setValue();
-            this.getView().byId("title1").setValue();
-            this.getView().byId("accountingType1").setValue();
-            this.getView().byId("currency1").setValue();
-            this.getView().byId("forex1").setValue();
-            this.getView().byId("perimeter1").setValue();
-            this.getView().byId("plant1").setValue();
-            this.getView().byId("capex1").setValue();
-            this.getView().byId("opex1").setValue();
-            this.getView().byId("lease1").setValue();
-            this.getView().byId("categories1").setValue();
-            this.getView().byId("yearN1").setValue();
-            this.getView().byId("forecastCurrentYear").setValue();
-            this.getView().byId("forecastYearN1").setValue();
-            this.getView().byId("forecastYearN2").setValue();
-            this.getView().byId("irr1").setValue();
-            this.getView().byId("promisedGainYearN").setValue();
-            this.getView().byId("promisedGainYearN3").setValue();
-            this.getView().byId("promisedGainYearN2").setValue();
-            this.getView().byId("comments1").setValue();
-            this.getView().byId("feedInput").setValue();
+            var inputIds = [
+                "projectNumber1", "ctoLabel1", "projectMaturity1", "title1",
+                "accountingType1", "currency1", "forex1", "perimeter1",
+                "plant1", "capex1", "opex1", "lease1",
+                "categories1", "yearN1", "forecastCurrentYear", 
+                "forecastYearN1", "forecastYearN2", "irr1",
+                "promisedGainYearN", "promisedGainYearN3", "promisedGainYearN2",
+                "comments1", "feedInput"
+            ];
+        
+            inputIds.forEach(function (id) {
+                this.getView().byId(id).setValue("");
+            }, this); // Bind 'this' to maintain context
         },
+        
 
     });
 });

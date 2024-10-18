@@ -48,16 +48,17 @@
                     <m:Label text="Plant" />
                     <m:Text id="plant" text="{selectedProject>Plant}" width="50%" />
 
-                    <m:Label text="Capex" />
-                    <m:Text id="capex" text="{selectedProject>Capex}" width="50%" />
+                    <m:Label text="Capex" visible="{= ${selectedProject>/AccountingType} === 'Capex' || ${selectedProject>/AccountingType} === 'Capex/Opex'}" />
+                    <m:Text id="capex" text="{selectedProject>Capex}" width="50%" visible="{= ${selectedProject>/AccountingType} === 'Capex' || ${selectedProject>/AccountingType} === 'Capex/Opex'}" />
 
-                    <m:Label text="Opex" />
-                    <m:Text id="opex" text="{selectedProject>Opex}" width="50%" />
+                    <m:Label text="Opex" visible="{= ${selectedProject>/AccountingType} === 'Opex' || ${selectedProject>/AccountingType} === 'Capex/Opex'}" />
+                    <m:Text id="opex" text="{selectedProject>Opex}" width="50%" visible="{= ${selectedProject>/AccountingType} === 'Opex' || ${selectedProject>/AccountingType} === 'Capex/Opex'}" />
 
-                    <m:Label text="Lease" />
-                    <m:Text id="lease" text="{selectedProject>Lease}" width="50%" />
+                    <m:Label text="Lease" visible="{= ${selectedProject>/AccountingType} === 'Lease'}" />
+                    <m:Text id="lease" text="{selectedProject>Lease}" width="50%" visible="{= ${selectedProject>/AccountingType} === 'Lease'}" />
                 </l:SimpleForm>
             </m:Panel>
+
 
             <!-- Categories Section -->
             <m:Panel headerText="Categories" width="100%">
