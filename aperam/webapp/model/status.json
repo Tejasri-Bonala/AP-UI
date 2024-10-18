@@ -54,7 +54,7 @@
       "lane": "1",
       "title": "Site Validation Step",
       "children": ["3"],
-      "state": "Positive",  
+      "state": "Critical",  
       "texts": ["ashwin@gmail.com"],
       "emails": ["ashwin@gmail.com"],
       "names": ["Ashwin"],

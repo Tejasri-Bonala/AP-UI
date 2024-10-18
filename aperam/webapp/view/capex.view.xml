@@ -28,7 +28,11 @@
                                                 <core:Item key="RestrictedBudget" text="Restricted Budget" />
                                             </m:ComboBox>
                                             <m:Label text="Project Maturity" />
-                                            <m:Input id="projectMaturity1" placeholder="Enter Project Maturity" width="50%" />
+                                             <m:ComboBox id="projectMaturity1" width="50%" placeholder="Select CTO Label">
+                                                <core:Item key="L1" text="Level 1: estimation" />
+                                                <core:Item key="L2" text="Level 2: budgetary offer (mandatory above 1,0mE)" />
+                                                <core:Item key="L3" text="Level 3: final offer (mandatory above 2,0mE)" />
+                                            </m:ComboBox>
                                         </l:SimpleForm>
                                     </m:Panel>
                                     <!-- Project Details Section -->

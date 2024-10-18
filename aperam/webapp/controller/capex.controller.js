@@ -38,12 +38,82 @@ sap.ui.define([
             });
             this.getView().setModel(oModel);
         },
+        // _getFormData: function () {
+        //     // Collect form data from input fields
+
+        //     return {
+        //         projectNumber: this.getView().byId("projectNumber1").getValue(),
+        //         cto_label: this.getView().byId("ctoLabel1").getSelectedKey(),
+        //         project_maturity: this.getView().byId("projectMaturity1").getSelectedKey(),
+        //         title: this.getView().byId("title1").getValue(),
+        //         accounting_type: this.getView().byId("accountingType1").getSelectedKey(),
+        //         currency: this.getView().byId("currency1").getSelectedKey(),
+        //         forex: this.getView().byId("forex1").getValue(),
+        //         perimeter: this.getView().byId("perimeter1").getValue(),
+        //         plant: this.getView().byId("plant1").getValue(),
+        //         capex: this.getView().byId("capex1").getValue(),
+        //         opex: this.getView().byId("opex1").getValue(),
+        //         lease: this.getView().byId("lease1").getValue(),
+        //         categories: this.getView().byId("categories1").getSelectedKey(),
+        //         year: this.getView().byId("year").getValue(),
+        //         // comments: this.getView().byId("comment1").getValue()
+        //         comments: {
+        //             text: this.getView().byId("comment1").getValue(), 
+        //             author: "Saurabh" 
+        //         }
+        //     };
+        // },        
         _getFormData: function () {
+            // Helper function to map keys to texts
+            function getProjectMaturityText(key) {
+                switch (key) {
+                    case "L1":
+                        return "Level 1: estimation";
+                    case "L2":
+                        return "Level 2: budgetary offer (mandatory above 1,0mE)";
+                    case "L3":
+                        return "Level 3: final offer (mandatory above 2,0mE)";
+                    default:
+                        return "";
+                }
+            }
+        
+            function getCategoryText(key) {
+                switch (key) {
+                    case "C02":
+                        return "C02 - Growth";
+                    case "C03":
+                        return "C03 - Modifications + Cost reduction or quality increase";
+                    case "C04":
+                        return "C04 - Risk of machine stop for reasons of break/shutdown or Obsolescence";
+                    case "C05":
+                        return "C05 - Renewals Relinings & Reconstruction (=Buildings)";
+                    case "C06":
+                        return "C06 - Environment,- C07cy-CyberSecurity";
+                    case "C07":
+                        return "C07ob-Obsolescence, - C07tr-Transformation";
+                    case "C08":
+                        return "C08 - R & D projects";
+                    case "C11":
+                        return "C11 - Business Continuity";
+                    case "C12":
+                        return "C12 - Energy Projects";
+                    case "C1Sa":
+                        return "C1Sa - Safety";
+                    case "C1Se":
+                        return "C1Se - Security";
+                    case "C13":
+                        return "C13 - Biological assets";
+                    default:
+                        return "";
+                }
+            }
+        
             // Collect form data from input fields
             return {
                 projectNumber: this.getView().byId("projectNumber1").getValue(),
                 cto_label: this.getView().byId("ctoLabel1").getSelectedKey(),
-                project_maturity: this.getView().byId("projectMaturity1").getValue(),
+                project_maturity: getProjectMaturityText(this.getView().byId("projectMaturity1").getSelectedKey()),
                 title: this.getView().byId("title1").getValue(),
                 accounting_type: this.getView().byId("accountingType1").getSelectedKey(),
                 currency: this.getView().byId("currency1").getSelectedKey(),
@@ -53,16 +123,15 @@ sap.ui.define([
                 capex: this.getView().byId("capex1").getValue(),
                 opex: this.getView().byId("opex1").getValue(),
                 lease: this.getView().byId("lease1").getValue(),
-                categories: this.getView().byId("categories1").getSelectedKey(),
+                categories: getCategoryText(this.getView().byId("categories1").getSelectedKey()),
                 year: this.getView().byId("year").getValue(),
-                // comments: this.getView().byId("comment1").getValue()
                 comments: {
-                    text: this.getView().byId("comment1").getValue(), 
-                    author: "Saurabh" 
+                    text: this.getView().byId("comment1").getValue(),
+                    author: "Saurabh"
                 }
             };
-        },        
-
+        },
+        
         onSubmitPress: function () {
             var model = this.getView().getModel();
             var formData = this._getFormData();
@@ -129,7 +198,7 @@ sap.ui.define([
                             oRouter.navTo("Routedashboard");
 
                             // Call the cancel function
-                            that.onCancelPress();
+                            // that.onCancelPress();
                         }.bind(that) // Bind 'that' to preserve context
                     });
                 },
@@ -179,21 +248,21 @@ sap.ui.define([
             // Update the model property for selectedAccountingType
             this.getView().getModel().setProperty("/selectedAccountingType", sSelectedKey);
         },
-        onCancelPress: function () {
-            var inputIds = [
-                "projectNumber1", "ctoLabel1", "projectMaturity1", "title1",
-                "accountingType1", "currency1", "forex1", "perimeter1",
-                "plant1", "capex1", "opex1", "lease1",
-                "categories1", "yearN1", "forecastCurrentYear",
-                "forecastYearN1", "forecastYearN2", "irr1",
-                "promisedGainYearN", "promisedGainYearN3", "promisedGainYearN2",
-                "comments1", "feedInput"
-            ];
+        // onCancelPress: function () {
+        //     var inputIds = [
+        //         "projectNumber1", "ctoLabel1", "projectMaturity1", "title1",
+        //         "accountingType1", "currency1", "forex1", "perimeter1",
+        //         "plant1", "capex1", "opex1", "lease1",
+        //         "categories1", "yearN1", "forecastCurrentYear",
+        //         "forecastYearN1", "forecastYearN2", "irr1",
+        //         "promisedGainYearN", "promisedGainYearN3", "promisedGainYearN2",
+        //         "comments1", "feedInput"
+        //     ];
 
-            inputIds.forEach(function (id) {
-                this.getView().byId(id).setValue("");
-            }, this); // Bind 'this' to maintain context
-        },
+        //     inputIds.forEach(function (id) {
+        //         this.getView().byId(id).setValue("");
+        //     }, this); // Bind 'this' to maintain context
+        // },
         onPost: function (oEvent) {
             var oFormat = DateFormat.getDateTimeInstance({ style: "medium" });
             var oDate = new Date();
