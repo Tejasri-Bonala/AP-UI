@@ -72,7 +72,11 @@
       "stepsModel": {
         "type": "sap.ui.model.json.JSONModel",
         "uri": "model/status.json"
-      }
+      },
+      "Feed": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "./model/Feed.json"
+           }
     },
     "resources": {
       "css": [

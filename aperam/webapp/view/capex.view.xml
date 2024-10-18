@@ -31,12 +31,24 @@
                                             <m:Input id="projectMaturity1" placeholder="Enter Project Maturity" width="50%" />
                                         </l:SimpleForm>
                                     </m:Panel>
+                                    <!-- Project Details Section -->
+                                    <m:Panel headerText="Project Details" width="100%">
+                                        <l:SimpleForm editable="true" width="100%">
+                                            <m:Label text="Perimeter" />
+                                            <m:Input id="perimeter1" placeholder="Enter Perimeter" width="50%" />
 
+                                            <m:Label text="Plant" />
+                                            <m:Input id="plant1" placeholder="Enter Plant" width="50%" />
+
+                                            <m:Label text="Title" />
+                                            <m:Input id="title1" placeholder="Enter Project Title" width="50%" />
+
+
+                                        </l:SimpleForm>
+                                    </m:Panel>
                                     <!-- Financial Information Section -->
                                     <m:Panel headerText="Financial Information" width="100%">
                                         <l:SimpleForm editable="true" width="100%">
-                                            <m:Label text="Title" />
-                                            <m:Input id="title1" placeholder="Enter Project Title" width="50%" />
 
                                             <m:Label text="Accounting Type" />
                                             <m:ComboBox id="accountingType1" width="50%" placeholder="Select Accounting Type" selectionChange="onAccountingTypeChange">
@@ -46,22 +58,17 @@
                                                 <core:Item key="Lease" text="Lease" />
                                             </m:ComboBox>
 
+
                                             <m:Label text="Currency" />
-                                            <m:Input id="currency1" placeholder="Enter Currency" width="50%" />
+                                            <m:ComboBox id="currency1" width="50%" placeholder="Select Currency">
+                                                <core:Item key="KBrl" text="KBrl " />
+                                                <core:Item key="KUS" text="KUS" />
+                                                <core:Item key="K€" text="K€" />
+                                            </m:ComboBox>
 
                                             <m:Label text="Forex (vs €)" />
                                             <m:Input id="forex1" placeholder="Enter Forex (vs €)" width="50%" />
-                                        </l:SimpleForm>
-                                    </m:Panel>
 
-                                    <!-- Project Details Section -->
-                                    <m:Panel headerText="Project Details" width="100%">
-                                        <l:SimpleForm editable="true" width="100%">
-                                            <m:Label text="Perimeter" />
-                                            <m:Input id="perimeter1" placeholder="Enter Perimeter" width="50%" />
-
-                                            <m:Label text="Plant" />
-                                            <m:Input id="plant1" placeholder="Enter Plant" width="50%" />
 
                                             <m:Label text="Capex" />
                                             <m:Input id="capex1" placeholder="Enter Capex" width="50%" visible="{= ${/selectedAccountingType} === 'Capex' || ${/selectedAccountingType} === 'Capex/Opex'}" />
@@ -73,11 +80,26 @@
                                             <m:Input id="lease1" placeholder="Enter Lease" width="50%" visible="{= ${/selectedAccountingType} === 'Lease'}" />
                                         </l:SimpleForm>
                                     </m:Panel>
+
+
                                     <!-- Categories Section -->
                                     <m:Panel headerText="Categories" width="100%">
                                         <l:SimpleForm editable="true" width="100%">
                                             <m:Label text="Categories" />
-                                            <m:Input id="categories1" placeholder="Enter Categories" width="50%" />
+                                            <m:ComboBox id="categories1" width="50%" placeholder="Select Currency" selectionChange="onAccountingTypeChange">
+                                                <core:Item key="C02" text="C02 - Growth" />
+                                                <core:Item key="C03" text="C03 - Modifications + Cost reduction or quality increase " />
+                                                <core:Item key="C04" text="C04 - Risk of machine stop for reasons of breake/shutdown or Obsolescence" />
+                                                <core:Item key="C05" text="C05 - Renewals Relinings &amp; Reconstruction (=Buildings)" />
+                                                <core:Item key="C06" text="C06 - Environment,- C07cy-CyberSecurity " />
+                                                <core:Item key="C07" text="C07ob-Obsolescence, - C07tr-Transformation," />
+                                                <core:Item key="C08" text="C08 - R &amp;D projects" />
+                                                <core:Item key="C11" text="C11 - Business Continuity" />
+                                                <core:Item key="C12" text="C12 - Energy Projects" />
+                                                <core:Item key="C1Sa" text="C1Sa - Safety " />
+                                                <core:Item key="C1Se" text="C1Se - Security" />
+                                                <core:Item key="C13" text="C13 - Biological assets" />
+                                            </m:ComboBox>
                                             <m:Label text="Year N" />
                                             <m:DatePicker displayFormat="yyyy" valueFormat="yy" width="50%" id="year" value="{/currentYear}" />
 
@@ -125,7 +147,7 @@
                                     <m:Panel headerText="Purchasing" width="100%" visible="false">
                                         <l:SimpleForm editable="true" width="100%">
                                             <m:Label text="Comments" />
-                                            <m:TextArea id="comments1" placeholder="Enter comments" width="50%" />
+                                            <m:TextArea id="comments" placeholder="Enter comments" width="50%" />
                                         </l:SimpleForm>
                                     </m:Panel>
                                 </m:VBox>
@@ -152,8 +174,10 @@
                             <blocks>
                                 <!-- <BlockBase:Comments id="Comments" /> -->
                                 <m:VBox>
-                                    <m:Label text="Add Comment"/>
-                                    <m:FeedInput id="feedInput" placeholder="Write a comment..." />
+                                    <m:FeedInput post="onPost" id="comment1"/>
+                                    <m:List showSeparators="Inner" items="{Feed>/EntryCollection}">
+                                        <m:FeedListItem sender="{Feed>Author}" info="{Feed>Type}" icon="{Feed>AuthorPicUrl}" timestamp="{Feed>Date}" text="{Feed>Text}" />
+                                    </m:List>
                                 </m:VBox>
                             </blocks>
                         </ObjectPageSubSection>

@@ -8,32 +8,32 @@
     },
     {
       "laneId": "1",
-      "iconSrc": "sap-icon://status-in-process",
+      "iconSrc": "sap-icon://create-form",
       "text": "Site Validation",
       "position": 1
     },
     {
       "laneId": "2",
-      "iconSrc": "sap-icon://status-completed",
+      "iconSrc": "sap-icon://create-form",
       "text": "Division Validation",
       "position": 2
     },
     {
       "laneId": "3",
-      "iconSrc": "sap-icon://official-service",
+      "iconSrc": "sap-icon://create-form",
       "text": "Corporate Validation",
       "position": 3
     },
     {
       "laneId": "4",
-      "iconSrc": "sap-icon://accept",
+      "iconSrc": "sap-icon://create-form",
       "text": "Validated",
       "position": 4
     },
     {
       "laneId": "5",
       "iconSrc": "sap-icon://world",
-      "text": "Public",
+      "text": "Publish",
       "position": 5
     }
   ],
@@ -44,7 +44,7 @@
       "title": "Draft Step",
       "children": ["2"],
       "state": "Positive",  
-      "texts": ["Details for draft step"],
+      "texts": ["tejasri@gmail.com"],
       "emails": ["tejasri@gmail.com"],
       "names": ["Tejasri"],
       "type": "Single"
@@ -54,8 +54,8 @@
       "lane": "1",
       "title": "Site Validation Step",
       "children": ["3"],
-      "state": "Critical",  
-      "texts": ["Details for site validation"],
+      "state": "Positive",  
+      "texts": ["ashwin@gmail.com"],
       "emails": ["ashwin@gmail.com"],
       "names": ["Ashwin"],
       "type": "Single"
@@ -66,7 +66,7 @@
       "title": "Division Validation Step",
       "children": ["4"],
       "state": "Critical", 
-      "texts": ["Details for division validation"],
+      "texts": ["saurabh@gmail.com"],
       "emails": ["saurabh@gmail.com"],
       "names": ["Saurabh"],
       "type": "Single"
@@ -77,7 +77,7 @@
       "title": "Corporate Validation Step",
       "children": ["5"],
       "state": "Critical",  
-      "texts": ["Details for Corporate Validation Step"],
+      "texts": ["sunil@gmail.com"],
       "emails": ["sunil@gmail.com"],
       "names": ["Sunil"],
       "type": "Single"
@@ -87,8 +87,8 @@
       "lane": "4",
       "title": "Validated Step",
       "children": ["6"],
-      "state": "Negative", 
-      "texts": ["Details for validation completion"],
+      "state": "Critical", 
+      "texts": ["vinay@gmail.com"],
       "emails": ["vinay@gmail.com"],
       "names": ["Vinay"],
       "type": "Single"
@@ -96,10 +96,10 @@
     {
       "id": "6",
       "lane": "5",
-      "title": "Public Step",
+      "title": "Publish Step",
       "children": [],
       "state": "Planned", 
-      "texts": ["Details for public release"],
+      "texts": ["teja@gmail.com"],
       "emails": ["teja@gmail.com"],
       "names": ["Teja"],
       "type": "Single"
