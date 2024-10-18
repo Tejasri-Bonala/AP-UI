@@ -1,8 +1,9 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
+    "sap/m/MessageBox",
     "sap/base/Log"
-], function (Controller, JSONModel, Log) {
+], function (Controller, JSONModel, MessageBox, Log) {
     "use strict";
 
     return Controller.extend("com.aperam.aperam.controller.capex", {
@@ -25,10 +26,16 @@ sap.ui.define([
                     CATEGORIES: "",
                     YEAR: "",
                     COMMENTS: ""
-                },                
+                },
                 apiResponse: ""
             });
             this.getView().setModel(initialModel);
+            var oDate = new Date();
+            var oYear = oDate.getFullYear();
+            var oModel = new sap.ui.model.json.JSONModel({
+                currentYear: oYear.toString()
+            });
+            this.getView().setModel(oModel);
         },
 
         _getFormData: function () {
@@ -73,22 +80,43 @@ sap.ui.define([
                     "X-CSRF-Token": this._fetchToken()
                 },
                 data: JSON.stringify(data),
-                success: function (result, xhr, data) {
+                success: function (result) {
                     model.setProperty(
                         "/apiResponse",
                         JSON.stringify(result, null, 4)
                     );
+
+                    // Show a success message box
+                    MessageBox.success("Workflow submitted successfully!", {
+                        title: "Success",
+                        onClose: function () {
+                            this.onCancelPress();
+                        }
+                    });
                 },
-                error: function (request, status, error) {
-                    var response = JSON.parse(request.responseText);
+                error: function (request) {
+                    var response;
+                    try {
+                        response = JSON.parse(request.responseText);
+                    } catch (e) {
+                        response = { message: "An unknown error occurred." };
+                    }
                     model.setProperty(
                         "/apiResponse",
                         JSON.stringify(response, null, 4)
                     );
-                },
+
+                    // Show an error message box
+                    MessageBox.error("Failed to submit workflow. Please try again.", {
+                        title: "Error",
+                        details: response.message || response, // Display the error details if available
+                        onClose: function () {
+                            // Optional: Actions to perform after closing the message box
+                        }
+                    });
+                }
             });
         },
-
         _fetchToken: function () {
             var fetchedToken;
 
@@ -117,7 +145,33 @@ sap.ui.define([
 
             // Update the model property for selectedAccountingType
             this.getView().getModel().setProperty("/selectedAccountingType", sSelectedKey);
-        }
+        },
+        onCancelPress: function () {
+            // Get the view
+            this.getView().byId("projectNumber1").setValue();
+            this.getView().byId("ctoLabel1").setValue();
+            this.getView().byId("projectMaturity1").setValue();
+            this.getView().byId("title1").setValue();
+            this.getView().byId("accountingType1").setValue();
+            this.getView().byId("currency1").setValue();
+            this.getView().byId("forex1").setValue();
+            this.getView().byId("perimeter1").setValue();
+            this.getView().byId("plant1").setValue();
+            this.getView().byId("capex1").setValue();
+            this.getView().byId("opex1").setValue();
+            this.getView().byId("lease1").setValue();
+            this.getView().byId("categories1").setValue();
+            this.getView().byId("yearN1").setValue();
+            this.getView().byId("forecastCurrentYear").setValue();
+            this.getView().byId("forecastYearN1").setValue();
+            this.getView().byId("forecastYearN2").setValue();
+            this.getView().byId("irr1").setValue();
+            this.getView().byId("promisedGainYearN").setValue();
+            this.getView().byId("promisedGainYearN3").setValue();
+            this.getView().byId("promisedGainYearN2").setValue();
+            this.getView().byId("comments1").setValue();
+            this.getView().byId("feedInput").setValue();
+        },
 
     });
 });

@@ -79,7 +79,8 @@
                                             <m:Label text="Categories" />
                                             <m:Input id="categories1" placeholder="Enter Categories" width="50%" />
                                             <m:Label text="Year N" />
-                                            <m:DatePicker  displayFormat="yyyy" valueFormat="yy" width="50%" id="year" />
+                                            <m:DatePicker displayFormat="yyyy" valueFormat="yy" width="50%" id="year" value="{/currentYear}" />
+
                                         </l:SimpleForm>
                                     </m:Panel>
 
