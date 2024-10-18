@@ -21,7 +21,7 @@ sap.ui.define([
                     return "Planned";
                 case "Validated":
                     return "Positive";
-                case "Public":
+                case "Publish":
                     return "Negative";
                 default:
                     return "Neutral"; // Default state if status doesn't match any case

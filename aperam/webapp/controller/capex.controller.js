@@ -34,21 +34,21 @@ sap.ui.define([
         _getFormData: function () {
             // Collect form data from input fields
             return {
-                PROJECT_NUMBER: this.getView().byId("projectNumber1").getValue(),
-                CTO_LABEL: this.getView().byId("ctoLabel1").getSelectedKey(),
-                PROJECT_MATURITY: this.getView().byId("projectMaturity1").getValue(),
-                TITLE: this.getView().byId("title1").getValue(),
-                ACCOUNTING_TYPE: this.getView().byId("accountingType1").getSelectedKey(),
-                CURRENCY: this.getView().byId("currency1").getValue(),
-                FOREX: this.getView().byId("forex1").getValue(),
-                PERIMETER: this.getView().byId("perimeter1").getValue(),
-                PLANT: this.getView().byId("plant1").getValue(),
-                CAPEX: this.getView().byId("capex1").getValue(),
-                OPEX: this.getView().byId("opex1").getValue(),
-                LEASE: this.getView().byId("lease1").getValue(),
-                CATEGORIES: this.getView().byId("categories1").getValue(),
-                YEAR: this.getView().byId("year").getValue(),
-                COMMENTS: this.getView().byId("comments1").getValue()
+                projectNumber: this.getView().byId("projectNumber1").getValue(),
+                cto_label: this.getView().byId("ctoLabel1").getSelectedKey(),
+                project_maturity: this.getView().byId("projectMaturity1").getValue(),
+                title: this.getView().byId("title1").getValue(),
+                accounting_type: this.getView().byId("accountingType1").getSelectedKey(),
+                currency: this.getView().byId("currency1").getValue(),
+                forex: this.getView().byId("forex1").getValue(),
+                perimeter: this.getView().byId("perimeter1").getValue(),
+                plant: this.getView().byId("plant1").getValue(),
+                capex: this.getView().byId("capex1").getValue(),
+                opex: this.getView().byId("opex1").getValue(),
+                lease: this.getView().byId("lease1").getValue(),
+                categories: this.getView().byId("categories1").getValue(),
+                year: this.getView().byId("year").getValue(),
+                comments: this.getView().byId("comments1").getValue()
             };
         },
 
